@@ -25,7 +25,6 @@
 
 // module.exports = app;
 
-
 require('dotenv').config();
 
 const express = require('express');
@@ -44,26 +43,40 @@ const usersRouter = require('./routes/users');
 const tasksRouter = require('./routes/tasks');
 
 // Middleware
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(logger('dev')); // logs requests
+app.use(express.json()); // parse JSON
+app.use(express.urlencoded({ extended: false })); // parse form data
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Test route (VERY IMPORTANT for debugging & demo)
+app.get('/', (req, res) => {
+  res.send('🚀 Project Planner API is running...');
+});
+
 // Routes
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tasks', tasksRouter);
 
-// 404 handler
+// (Optional) Keep index route if needed
+app.use('/home', indexRouter);
+
+// 404 - Not Found handler
 app.use((req, res) => {
-  res.status(404).json({ error: 'Not Found' });
+  res.status(404).json({
+    success: false,
+    message: 'Route not found'
+  });
 });
 
-// Error handler
+// Global Error Handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Something went wrong!' });
+  console.error('🔥 Error:', err.stack);
+
+  res.status(500).json({
+    success: false,
+    message: 'Internal Server Error'
+  });
 });
 
 module.exports = app;

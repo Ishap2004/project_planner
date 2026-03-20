@@ -2,7 +2,7 @@ const db = require('../config/database');
 
 const Task = {
 
-  // GET all tasks for logged-in user
+  // Get all tasks for a user
   getAllByUser: async (userId) => {
     const [rows] = await db.query(
       'SELECT * FROM tasks WHERE user_id = ?',
@@ -11,35 +11,38 @@ const Task = {
     return rows;
   },
 
-  // CREATE task
+  // Create new task
   create: async (userId, title, type, due_date, priority) => {
-    const sql = `
-      INSERT INTO tasks (user_id, title, type, due_date, priority)
-      VALUES (?, ?, ?, ?, ?)
-    `;
-
-    const [result] = await db.query(sql, [
-      userId,
-      title,
-      type,
-      due_date,
-      priority
-    ]);
-
+    const [result] = await db.query(
+      `INSERT INTO tasks (user_id, title, type, due_date, priority)
+       VALUES (?, ?, ?, ?, ?)`,
+      [userId, title, type, due_date, priority]
+    );
     return result.insertId;
   },
 
-  // UPDATE task
+  // Update task status
   update: async (id, status) => {
-    await db.query(
+    const [result] = await db.query(
       'UPDATE tasks SET status = ? WHERE id = ?',
       [status, id]
     );
+
+    if (result.affectedRows === 0) {
+      throw new Error('Task not found');
+    }
   },
 
-  // DELETE task
+  // Delete task
   delete: async (id) => {
-    await db.query('DELETE FROM tasks WHERE id = ?', [id]);
+    const [result] = await db.query(
+      'DELETE FROM tasks WHERE id = ?',
+      [id]
+    );
+
+    if (result.affectedRows === 0) {
+      throw new Error('Task not found');
+    }
   }
 };
 

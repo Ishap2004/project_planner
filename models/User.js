@@ -1,25 +1,49 @@
 const db = require('../config/database');
+const bcrypt = require('bcrypt');
 
 const User = {
-  // 1. Read All Users
-  getAllUsers: async function() {
-    const [rows] = await db.query('SELECT * FROM users');
-    return rows;
+
+  // Register
+  register: async (name, email, password) => {
+    const [existing] = await db.query(
+      'SELECT * FROM users WHERE email = ?',
+      [email]
+    );
+
+    if (existing.length > 0) {
+      throw new Error('User already exists');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const [result] = await db.query(
+      'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+      [name, email, hashedPassword]
+    );
+
+    return result.insertId;
   },
 
-  // 2. Create New User
-  create: async function(name, email, password) {
-    const sql = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
-    const [result] = await db.query(sql, [name, email, password]);
-    return result.insertId; // Returns the new ID
-  },
-
-  findByEmail: async (email) => {
+  // Login
+  login: async (email, password) => {
     const [rows] = await db.query(
       'SELECT * FROM users WHERE email = ?',
       [email]
     );
-    return rows[0];
+
+    if (rows.length === 0) {
+      throw new Error('User not found');
+    }
+
+    const user = rows[0];
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      throw new Error('Invalid password');
+    }
+
+    return user;
   }
 };
 
