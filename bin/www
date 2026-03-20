@@ -5,7 +5,8 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('project-planner:server');
+// var debug = require('debug')('project-planner:server');
+console.log('Server running on ' + bind);
 var http = require('http');
 
 /**
