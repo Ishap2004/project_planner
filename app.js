@@ -49,7 +49,7 @@ app.use(express.urlencoded({ extended: false })); // parse form data
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Test route (VERY IMPORTANT for debugging & demo)
+// Test route 
 app.get('/', (req, res) => {
   res.send('🚀 Project Planner API is running...');
 });
@@ -71,7 +71,7 @@ app.use((req, res) => {
 
 // Global Error Handler
 app.use((err, req, res, next) => {
-  console.error('🔥 Error:', err.stack);
+  console.error('Error:', err.stack);
 
   res.status(500).json({
     success: false,
