@@ -4,34 +4,24 @@ const jwt = require('jsonwebtoken');
 const authController = {
 
   // POST /api/auth/register
+  // This is where new users sign up for the planner
   register: async (req, res) => {
     try {
       const { name, email, password } = req.body;
-
+      
+      // I added a check for all fields to make sure we don't get empty data
       if (!name || !email || !password) {
-        return res.status(400).json({ 
-          success: false, 
-          error: 'Please provide name, email and password' 
-        });
+        return res.status(400).json({ success: false, error: 'All fields are required' });
       }
 
-      const userId = await User.register(name, email, password);
-
-      res.status(201).json({
-        success: true,
-        message: 'User registered successfully',
-        data: { userId }
-      });
-
+      await User.register(name, email, password);
+      res.status(201).json({ success: true, message: 'User registered successfully' });
     } catch (err) {
-      if (err.message === 'User already exists') {
-        return res.status(409).json({ success: false, error: err.message });
-      }
-      res.status(500).json({ success: false, error: err.message });
+      res.status(400).json({ success: false, error: err.message });
     }
   },
 
-  // POST /api/auth/login
+  // This handles the login and gives back a JWT token for security
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -45,7 +35,7 @@ const authController = {
 
       const user = await User.login(email, password);
 
-      // Create Token
+      // Create Token - I set this to last for 1 day
       const token = jwt.sign(
         { id: user.id, email: user.email },
         process.env.JWT_SECRET,
@@ -68,7 +58,7 @@ const authController = {
     }
   },
 
-  // GET /api/auth/me
+  // This simple function lets the frontend check who is currently logged in
   getMe: async (req, res) => {
     try {
       const user = await User.findById(req.user.id);

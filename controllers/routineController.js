@@ -2,7 +2,7 @@ const Routine = require('../models/Routine');
 
 const routineController = {
 
-  // GET /api/routines
+  // This gets all the self-care routines for the user (like meals and breaks)
   getRoutines: async (req, res) => {
     try {
       const routines = await Routine.getAllByUser(req.user.id);
@@ -12,7 +12,7 @@ const routineController = {
     }
   },
 
-  // POST /api/routines
+  // This lets users add a new daily routine to their planner
   createRoutine: async (req, res) => {
     try {
       const { title, scheduled_time } = req.body;

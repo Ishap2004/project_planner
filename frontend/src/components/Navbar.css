@@ -2,31 +2,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #1a1a1a;
-  color: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  padding: 1.2rem 4rem;
+  /* Glassmorphism effect for a modern look */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar h2 {
   margin: 0;
-  color: #646cff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #00d2ff;
 }
 
 .navbar ul {
   list-style: none;
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
   margin: 0;
   padding: 0;
 }
 
 .navbar li {
   cursor: pointer;
-  font-weight: 500;
-  transition: color 0.2s;
+  font-weight: 600;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
 }
 
 .navbar li:hover {
-  color: #646cff;
+  color: #00d2ff;
+  transform: translateY(-2px);
 }

@@ -3,16 +3,19 @@ const Task = require('../models/Task');
 const taskController = {
 
   // GET /api/tasks
+  // This function gets all tasks that belong to the logged-in user
   getTasks: async (req, res) => {
     try {
+      // I'm using req.user.id which comes from the auth middleware
       const tasks = await Task.getAllByUser(req.user.id);
-      res.status(200).json({ success: true, data: tasks });
+      res.json({ success: true, data: tasks });
     } catch (err) {
       res.status(500).json({ success: false, error: err.message });
     }
   },
 
   // POST /api/tasks
+  // This creates a new task and saves it in the database
   createTask: async (req, res) => {
     try {
       const { title, type, due_date, priority } = req.body;

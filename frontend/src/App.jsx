@@ -2,33 +2,39 @@ import Navbar from './components/Navbar';
 import Card from './components/Card';
 import './App.css';
 
+/**
+ * Hi! This is the main App component. 
+ * I've set it up to show the Navbar at the top and a grid of cards for the dashboard.
+ */
 function App() {
   return (
-    <>
-      <div className="app-container">
-        <Navbar />
-        <main className="container">
-          <h1>Student Life Dashboard</h1>
-          <div className="card-grid">
-            <Card 
-              title="Study Tasks" 
-              description="Manage your assignments and exam prep." 
-              buttonText="Manage Tasks"
-            />
-            <Card 
-              title="Work Tasks" 
-              description="Keep track of your part-time job duties." 
-              buttonText="Manage Work"
-            />
-            <Card 
-              title="Self-Care" 
-              description="Daily routines: meals, breaks, and exercise." 
-              buttonText="Manage routines"
-            />
-          </div>
-        </main>
-      </div>
-    </>
+    <div className="app-container">
+      {/* Our global navigation bar */}
+      <Navbar />
+
+      <main className="container">
+        <h1>Student Life Dashboard</h1>
+        
+        {/* I organized these cards in a grid so they look clean on any screen */}
+        <div className="card-grid">
+          <Card 
+            title="Study Time" 
+            description="Manage your assignments, exam prep, and homework in one place." 
+            buttonText="Open Tasks"
+          />
+          <Card 
+            title="Work Life" 
+            description="Keep track of your shifts and part-time job duties easily." 
+            buttonText="View Shifts"
+          />
+          <Card 
+            title="Self-Care" 
+            description="Don't forget to eat and take breaks! Manage your daily routines here." 
+            buttonText="Manage Routines"
+          />
+        </div>
+      </main>
+    </div>
   );
 }
 
