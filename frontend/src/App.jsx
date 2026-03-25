@@ -23,9 +23,9 @@ function App() {
             buttonText="Open Tasks"
           />
           <Card 
-            title="Work Life" 
-            description="Keep track of your shifts and part-time job duties easily." 
-            buttonText="View Shifts"
+            title="Job Tasks" 
+            description="Keep track of your projects and professional responsibilities." 
+            buttonText="Manage Tasks"
           />
           <Card 
             title="Self-Care" 
