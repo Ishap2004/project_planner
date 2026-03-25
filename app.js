@@ -38,9 +38,9 @@ const app = express();
 require('./config/database');
 
 // Import Routes
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 const tasksRouter = require('./routes/tasks');
+const routinesRouter = require('./routes/routines');
 
 // Middleware
 app.use(logger('dev')); // logs requests
@@ -51,15 +51,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Test route 
 app.get('/', (req, res) => {
-  res.send('🚀 Project Planner API is running...');
+  res.send('🚀 Student Life Planner API is running...');
 });
 
-// Routes
-app.use('/users', usersRouter);
-app.use('/tasks', tasksRouter);
-
-// (Optional) Keep index route if needed
-app.use('/home', indexRouter);
+// API Routes
+app.use('/api/auth', authRouter);
+app.use('/api/tasks', tasksRouter);
+app.use('/api/routines', routinesRouter);
 
 // 404 - Not Found handler
 app.use((req, res) => {
@@ -73,9 +71,9 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
   console.error('Error:', err.stack);
 
-  res.status(500).json({
+  res.status(err.status || 500).json({
     success: false,
-    message: 'Internal Server Error'
+    message: err.message || 'Internal Server Error'
   });
 });
 

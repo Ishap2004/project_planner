@@ -42,8 +42,16 @@ const User = {
     if (!isMatch) {
       throw new Error('Invalid password');
     }
-
     return user;
+  },
+
+  // Find by ID
+  findById: async (id) => {
+    const [rows] = await db.query(
+      'SELECT id, name, email FROM users WHERE id = ?',
+      [id]
+    );
+    return rows.length > 0 ? rows[0] : null;
   }
 };
 

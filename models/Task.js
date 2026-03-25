@@ -22,26 +22,26 @@ const Task = {
   },
 
   // Update task status
-  update: async (id, status) => {
+  update: async (id, userId, status) => {
     const [result] = await db.query(
-      'UPDATE tasks SET status = ? WHERE id = ?',
-      [status, id]
+      'UPDATE tasks SET status = ? WHERE id = ? AND user_id = ?',
+      [status, id, userId]
     );
 
     if (result.affectedRows === 0) {
-      throw new Error('Task not found');
+      throw new Error('Task not found or unauthorized');
     }
   },
 
   // Delete task
-  delete: async (id) => {
+  delete: async (id, userId) => {
     const [result] = await db.query(
-      'DELETE FROM tasks WHERE id = ?',
-      [id]
+      'DELETE FROM tasks WHERE id = ? AND user_id = ?',
+      [id, userId]
     );
 
     if (result.affectedRows === 0) {
-      throw new Error('Task not found');
+      throw new Error('Task not found or unauthorized');
     }
   }
 };

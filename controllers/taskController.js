@@ -2,23 +2,23 @@ const Task = require('../models/Task');
 
 const taskController = {
 
-  // GET /tasks
+  // GET /api/tasks
   getTasks: async (req, res) => {
     try {
       const tasks = await Task.getAllByUser(req.user.id);
-      res.json(tasks);
+      res.status(200).json({ success: true, data: tasks });
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ success: false, error: err.message });
     }
   },
 
-  // POST /tasks
+  // POST /api/tasks
   createTask: async (req, res) => {
     try {
       const { title, type, due_date, priority } = req.body;
 
       if (!title) {
-        return res.status(400).json({ error: 'Title required' });
+        return res.status(400).json({ success: false, error: 'Title required' });
       }
 
       const newId = await Task.create(
@@ -30,32 +30,44 @@ const taskController = {
       );
 
       res.status(201).json({
-        message: 'Task created',
-        id: newId
+        success: true,
+        message: 'Task created successfully',
+        data: { id: newId }
       });
 
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ success: false, error: err.message });
     }
   },
 
-  // PUT /tasks/:id
+  // PUT /api/tasks/:id
   updateTask: async (req, res) => {
     try {
-      await Task.update(req.params.id, req.body.status);
-      res.json({ message: 'Task updated' });
+      const { status } = req.body;
+      if (status === undefined) {
+        return res.status(400).json({ success: false, error: 'Status is required' });
+      }
+
+      await Task.update(req.params.id, req.user.id, status);
+      res.status(200).json({ success: true, message: 'Task updated successfully' });
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      if (err.message.includes('not found')) {
+        return res.status(404).json({ success: false, error: err.message });
+      }
+      res.status(500).json({ success: false, error: err.message });
     }
   },
 
-  // DELETE /tasks/:id
+  // DELETE /api/tasks/:id
   deleteTask: async (req, res) => {
     try {
-      await Task.delete(req.params.id);
-      res.json({ message: 'Task deleted' });
+      await Task.delete(req.params.id, req.user.id);
+      res.status(200).json({ success: true, message: 'Task deleted successfully' });
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      if (err.message.includes('not found')) {
+        return res.status(404).json({ success: false, error: err.message });
+      }
+      res.status(500).json({ success: false, error: err.message });
     }
   }
 };
