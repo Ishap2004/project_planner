@@ -14,8 +14,25 @@ const authController = {
         return res.status(400).json({ success: false, error: 'All fields are required' });
       }
 
-      await User.register(name, email, password);
-      res.status(201).json({ success: true, message: 'User registered successfully' });
+      const userId = await User.register(name, email, password);
+      
+      // Create Token so they are logged in immediately
+      const token = jwt.sign(
+        { id: userId, email },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' }
+      );
+
+      res.status(201).json({ 
+        success: true, 
+        message: 'User registered successfully',
+        token,
+        data: {
+          id: userId,
+          name,
+          email
+        }
+      });
     } catch (err) {
       res.status(400).json({ success: false, error: err.message });
     }

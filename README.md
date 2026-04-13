@@ -1,84 +1,83 @@
-# 🎓 Student Life Planner: Full-Stack MVC Application
+# 🚀 Student Life Planner
 
-A professional, feature-rich task and routine management system designed to help students balance academic responsibilities and personal well-being. This project follows the **Model-View-Controller (MVC)** architectural pattern and features a modern **React** frontend.
-
----
-
-## 🚀 Key Features
-
-- **Personalized Dashboard**: A unified view for managing Study Time, Work Life, and Self-Care.
-- **Secure Authentication**: User-protected data using **JWT** and **bcrypt** encryption.
-- **Daily Routines**: Integrated scheduling for meals, breaks, and exercise.
-- **Task Management**: Full CRUD (Create, Read, Update, Delete) for academic and professional tasks.
+A professional, full-stack Student Life Planner designed to help students manage their daily tasks and self-care routines. This project was developed as part of the **PROG2500 - Open-Source Full Stack Development** course.
 
 ---
 
-## 🛠️ Technical Stack & Architecture
+## 🌟 Key Features
 
-### **Backend (Node.js & Express)**
-- **Architecture**: Modular MVC structure for clear separation of concerns.
-- **Security**: 
-  - **bcrypt**: Secure password hashing.
-  - **JWT**: Stateless session management for protected routes.
-- **Database**: Relational data management using **MySQL**.
+- **Authentication**: Secure registration and login using JWT (JSON Web Tokens).
+- **Task Management**: Full CRUD functionality for student tasks with categorization (Study, Work, Personal).
+- **Daily Routines**: Manage recurring habits like meals and breaks with scheduled times.
+- **Premium UI**: Modern, responsive dashboard with glassmorphism, smooth animations, and a sophisticated dark mode.
+- **Real-time Feedback**: Instant UI updates and interactive task toggling.
 
-### **Frontend (React & Vite)**
-- **Framework**: Component-based UI for high performance.
-- **Components**: Reusable, independently styled cards and navigation components.
-- **Styling**: Modern CSS with glassmorphism and gradient design.
+## 🛠️ Tech Stack
 
----
+- **Frontend**: React 19, Vite, Axios, Lucide-React, React Router DOM.
+- **Backend**: Node.js, Express.
+- **Database**: MySQL (Hosted on Aiven).
+- **Security**: JWT for session management, Bcrypt for password hashing.
+- **Styling**: Vanilla CSS with modern Design Tokens.
 
-## 🧠 Educational Outcomes (What I Learned)
+## 🎓 Course Mapping (CLOs)
 
-This project served as a deep dive into core full-stack engineering principles:
-1. **Clean Architecture**: Learned how to isolate database logic (Models) from business logic (Controllers) and endpoints (Routes).
-2. **RESTful API Design**: Built a standardized API that returns consistent JSON responses and appropriate HTTP status codes.
-3. **Frontend Efficiency**: Developed reusable React components, reducing code duplication and improving maintainability.
-4. **Data Privacy**: Implemented robust user-scoping, ensuring users can only interact with their own data.
+This project successfully implements all Course Learning Outcomes:
 
----
-
-## 📂 Project Structure
-
-```bash
-project_planner/
-├── controllers/    # Request handling & Business logic
-├── models/         # Database operations (SQL)
-├── routes/         # Express API endpoint definitions
-├── middleware/     # JWT authentication & Security
-├── frontend/       # React application source (Vite)
-│   ├── src/components/ # Shared UI components
-│   └── src/App.jsx    # Dashboard assembly
-└── schema.sql      # Database structure initialization
-```
+- **CLO1 (Backend)**: Built a scalable RESTful API using Node.js and Express.
+- **CLO2 (Database)**: Integrated persistent MySQL storage for all user data.
+- **CLO3 (Frontend)**: Developed a dynamic, component-based SPA using React.
+- **CLO4 (Integration)**: Connected the React frontend to the Express backend via a Vite proxy.
+- **CLO5 (Security)**: Implemented authentication and authorization best practices.
+- **CLO6 (Deployment)**: Configured for cloud deployment with continuous integrity checks.
 
 ---
 
-## 📖 API Documentation
+## 🚀 Getting Started
 
-| Endpoint | Method | Description | Auth Required |
-| :--- | :--- | :--- | :--- |
-| `/api/auth/register` | `POST` | Create a new user account | No |
-| `/api/auth/login` | `POST` | Login and receive a JWT token | No |
-| `/api/tasks` | `GET` | Get all tasks for the logged-in user | Yes |
-| `/api/tasks` | `POST` | Create a new task | Yes |
-| `/api/tasks/:id` | `PUT` | Update a task's status | Yes |
-| `/api/tasks/:id` | `DELETE` | Delete a specific task | Yes |
-| `/api/routines` | `GET` | Get all daily routines | Yes |
-| `/api/routines` | `POST` | Create a new routine | Yes |
+### Prerequisites
+- Node.js (v18+)
+- MySQL Database
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Ishap2004/project_planner.git
+   cd project_planner
+   ```
+
+2. **Backend Setup**:
+   - Install dependencies: `npm install`
+   - Configure `.env`:
+     ```env
+     DB_HOST=your_host
+     DB_USER=your_user
+     DB_PASS=your_pass
+     DB_NAME=your_db
+     JWT_SECRET=your_secret
+     ```
+   - Start Server: `npm run dev`
+
+3. **Frontend Setup**:
+   - Navigate to frontend: `cd frontend`
+   - Install dependencies: `npm install`
+   - Start Vite: `npm run dev`
+
+4. **Access the App**:
+   Navigate to `http://localhost:5173` in your browser.
 
 ---
 
-## ⚙️ Setup Instructions
+## 📅 Sprint 3: Integration Highlights
 
-### **1. Backend**
-1. Run `npm install` in the root directory.
-2. Create a `.env` file with your `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`, and `JWT_SECRET`.
-3. Import **`schema.sql`** into your MySQL database.
-4. Run `npm start`.
+- **Seamless API Connectivity**: All frontend actions trigger robust backend updates.
+- **Protected Routing**: Dashboard access is restricted to authenticated users.
+- **Data Consistency**: Fixed `due_date` and registration bugs for a flawless user experience.
+- **Aesthetic Overhaul**: Upgraded from basic CSS to a high-end, professional UI.
 
-### **2. Frontend**
-1. `cd frontend` and run `npm install`.
-2. Run `npm run dev`.
-3. Open `http://localhost:5173` in your browser.
+---
+
+**Developed by Ishap2004**  
+*Nova Scotia Community College*  
+*Winter 2026*
