@@ -79,5 +79,5 @@ This project successfully implements all Course Learning Outcomes:
 ---
 
 **Developed by Ishap2004**  
-*Nova Scotia Community College*  
+*Conestoga College*  
 *Winter 2026*
