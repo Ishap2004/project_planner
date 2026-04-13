@@ -27,9 +27,9 @@ const taskController = {
       const newId = await Task.create(
         req.user.id,
         title,
-        type,
-        due_date,
-        priority
+        type || 'Study',
+        due_date || null,
+        priority || 'Medium'
       );
 
       res.status(201).json({

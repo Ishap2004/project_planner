@@ -31,6 +31,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors');
 
 const app = express();
 
@@ -43,6 +44,7 @@ const tasksRouter = require('./routes/tasks');
 const routinesRouter = require('./routes/routines');
 
 // Middleware
+app.use(cors()); // Allow Cross-Origin Requests
 app.use(logger('dev')); // logs requests
 app.use(express.json()); // parse JSON
 app.use(express.urlencoded({ extended: false })); // parse form data
@@ -59,12 +61,18 @@ app.use('/api/auth', authRouter);
 app.use('/api/tasks', tasksRouter);
 app.use('/api/routines', routinesRouter);
 
-// 404 - Not Found handler
-app.use((req, res) => {
+// 404 - Not Found handler for API routes
+app.use('/api/*', (req, res) => {
   res.status(404).json({
     success: false,
     message: 'Route not found'
   });
+});
+
+// Serve frontend in production
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/dist', 'index.html'));
 });
 
 // Global Error Handler

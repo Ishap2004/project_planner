@@ -14,8 +14,7 @@ const Task = {
   // Create new task
   create: async (userId, title, type, due_date, priority) => {
     const [result] = await db.query(
-      `INSERT INTO tasks (user_id, title, type, due_date, priority)
-       VALUES (?, ?, ?, ?, ?)`,
+      'INSERT INTO tasks (user_id, title, type, due_date, priority) VALUES (?, ?, ?, ?, ?)',
       [userId, title, type, due_date, priority]
     );
     return result.insertId;

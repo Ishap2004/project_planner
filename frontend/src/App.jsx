@@ -1,38 +1,40 @@
+import React, { useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
 import Navbar from './components/Navbar';
-import Card from './components/Card';
+import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import './App.css';
 
-/**
- * Hi! This is the main App component. 
- * I've set it up to show the Navbar at the top and a grid of cards for the dashboard.
- */
+const PrivateRoute = ({ children }) => {
+  const { user, loading } = useContext(AuthContext);
+  if (loading) return <div>Loading...</div>;
+  return user ? children : <Navigate to="/login" />;
+};
+
 function App() {
+  const { user, loading } = useContext(AuthContext);
+
+  if (loading) return <div>Loading Application...</div>;
+
   return (
     <div className="app-container">
-      {/* Our global navigation bar */}
       <Navbar />
-
-      <main className="container">
-        <h1>Student Life Dashboard</h1>
-        
-        {/* I organized these cards in a grid so they look clean on any screen */}
-        <div className="card-grid">
-          <Card 
-            title="Study Time" 
-            description="Manage your assignments, exam prep, and homework in one place." 
-            buttonText="Open Tasks"
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
+          <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
+          <Route path="/register" element={user ? <Navigate to="/dashboard" /> : <Register />} />
+          <Route 
+            path="/dashboard" 
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            } 
           />
-          <Card 
-            title="Job Tasks" 
-            description="Keep track of your projects and professional responsibilities." 
-            buttonText="Manage Tasks"
-          />
-          <Card 
-            title="Self-Care" 
-            description="Don't forget to eat and take breaks! Manage your daily routines here." 
-            buttonText="Manage Routines"
-          />
-        </div>
+        </Routes>
       </main>
     </div>
   );
