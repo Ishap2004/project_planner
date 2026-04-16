@@ -1,31 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
 :root {
-  --primary: #6366f1;
-  --primary-glow: rgba(99, 102, 241, 0.5);
-  --primary-hover: #4f46e5;
-  --bg-dark: #0b0f1a;
-  --bg-card: rgba(23, 31, 50, 0.7);
-  --text-main: #f1f5f9;
-  --text-muted: #94a3b8;
+  --primary: #d946ef; /* Bright Pink */
+  --primary-glow: rgba(217, 70, 239, 0.5);
+  --primary-hover: #c026d3;
+  --bg-dark: #0f0a1c; /* Deep Purple-tinted dark background */
+  --bg-card: rgba(28, 19, 46, 0.7);
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
   --border: rgba(255, 255, 255, 0.08);
   --success: #10b981;
-  --danger: #ef4444;
-  --accent: #c084fc;
-  --sidebar: #131c31;
+  --danger: #e11d48;
+  --accent: #a855f7; /* Purple */
+  --sidebar: #1e112a;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
 }
 
 body {
   background: var(--bg-dark);
   background-image: 
-    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(192, 132, 252, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 60%);
+    radial-gradient(circle at 10% 20%, rgba(217, 70, 239, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(219, 39, 119, 0.05) 0%, transparent 60%);
   color: var(--text-main);
   min-height: 100vh;
   line-height: 1.5;

@@ -12,6 +12,8 @@ export default function Dashboard() {
   const [newTask, setNewTask] = useState({ title: '', type: 'Study', priority: 'Medium' });
   const [newRoutine, setNewRoutine] = useState({ title: '', scheduled_time: '' });
 
+  // DEMO HIGHLIGHT: We use Axios to make API calls to our Express backend.
+  // This GET request grabs the tasks from the database and attaches the user's JWT token for security.
   const fetchTasks = async () => {
     try {
       const res = await axios.get('/api/tasks', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }});
@@ -36,6 +38,8 @@ export default function Dashboard() {
     loadData();
   }, []);
 
+  // DEMO HIGHLIGHT: Here's where we integrate the frontend with the backend using a POST request.
+  // We send the 'newTask' data to our Express API, which then saves it in our MySQL database.
   const handleCreateTask = async (e) => {
     e.preventDefault();
     try {

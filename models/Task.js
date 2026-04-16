@@ -11,6 +11,9 @@ const Task = {
     return rows;
   },
 
+  // DEMO HIGHLIGHT: This is our Database Model!
+  // It receives the request from the controller, and executes a raw SQL INSERT query 
+  // directly into our live MySQL database hosted on Aiven.
   // Create new task
   create: async (userId, title, type, due_date, priority) => {
     const [result] = await db.query(

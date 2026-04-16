@@ -56,6 +56,8 @@ app.get('/', (req, res) => {
   res.send('🚀 Student Life Planner API is running...');
 });
 
+// DEMO HIGHLIGHT: This is our Backend Express Server.
+// Here we define the main API routes that listen for requests coming from our Frontend.
 // API Routes
 app.use('/api/auth', authRouter);
 app.use('/api/tasks', tasksRouter);
