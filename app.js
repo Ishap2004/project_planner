@@ -51,10 +51,7 @@ app.use(express.urlencoded({ extended: false })); // parse form data
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Test route 
-app.get('/', (req, res) => {
-  res.send('🚀 Student Life Planner API is running...');
-});
+
 
 // DEMO HIGHLIGHT: This is our Backend Express Server.
 // Here we define the main API routes that listen for requests coming from our Frontend.
