@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "build": "npm install --prefix frontend && npm run build --prefix frontend",
+    "build": "npm install --include=dev --prefix frontend && npm run build --prefix frontend",
     "postinstall": "npm run build"
   },
   "dependencies": {
