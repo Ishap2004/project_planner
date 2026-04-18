@@ -4,6 +4,12 @@ A professional, full-stack Student Life Planner designed to help students manage
 
 ---
 
+## 🌐 Live Demo
+
+You can access the live version of the application here: **[Student Life Planner Live Demo](https://project-planner-qh8c.onrender.com)**
+
+---
+
 ## 🌟 Key Features
 
 - **Authentication**: Secure registration and login using JWT (JSON Web Tokens).

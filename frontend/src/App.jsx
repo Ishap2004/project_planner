@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 // DEMO HIGHLIGHT: This is our custom PrivateRoute component.
@@ -39,6 +40,7 @@ function App() {
               </PrivateRoute>
             } 
           />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
     </div>
