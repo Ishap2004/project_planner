@@ -6,7 +6,7 @@ A professional, full-stack Student Life Planner designed to help students manage
 
 ## 🌐 Live Demo
 
-You can access the live version of the application here: **[Student Life Planner Live Demo](https://project-planner-qh8c.onrender.com)**
+You can access the live version of the application here: **[Student Life Planner Live Demo](https://project-planner-pjve.onrender.com)**
 
 ---
 
