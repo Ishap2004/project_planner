@@ -14,7 +14,7 @@ export default function Dashboard() {
   const [filter, setFilter] = useState('All'); // All, Pending, Completed
   
   const [newTask, setNewTask] = useState({ title: '', type: 'Study', priority: 'Medium' });
-  const [newRoutine, setNewRoutine] = useState({ title: '', scheduled_time: '' });
+  const [newRoutine, setNewRoutine] = useState({ title: '', scheduled_time: '', end_time: '', day_of_week: 'Monday' });
 
   const fetchTasks = async () => {
     try {
@@ -93,7 +93,7 @@ export default function Dashboard() {
     try {
       await axios.post('/api/routines', newRoutine, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }});
       fetchRoutines();
-      setNewRoutine({ title: '', scheduled_time: '' });
+      setNewRoutine({ title: '', scheduled_time: '', end_time: '', day_of_week: 'Monday' });
     } catch (err) { console.error('Error creating routine:', err); }
   };
 
@@ -218,21 +218,41 @@ export default function Dashboard() {
             <h2>Routine Management</h2>
           </div>
           
-          <form onSubmit={handleCreateRoutine} className="add-form">
-            <input 
-              type="text" 
-              placeholder="Habit name..." 
-              value={newRoutine.title} 
-              onChange={e => setNewRoutine({...newRoutine, title: e.target.value})}
-              required
-            />
-            <input 
-              type="time" 
-              value={newRoutine.scheduled_time} 
-              onChange={e => setNewRoutine({...newRoutine, scheduled_time: e.target.value})}
-              required
-            />
-            <button type="submit"><Plus size={20} /></button>
+          <form onSubmit={handleCreateRoutine} className="add-form routine-grid-form">
+            <div className="form-row main-row">
+              <input 
+                type="text" 
+                placeholder="Shift/Habit name..." 
+                value={newRoutine.title} 
+                onChange={e => setNewRoutine({...newRoutine, title: e.target.value})}
+                required
+              />
+              <select value={newRoutine.day_of_week} onChange={e => setNewRoutine({...newRoutine, day_of_week: e.target.value})}>
+                {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(d => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+            </div>
+            <div className="form-row time-row">
+              <div className="time-input">
+                <label>Start</label>
+                <input 
+                  type="time" 
+                  value={newRoutine.scheduled_time} 
+                  onChange={e => setNewRoutine({...newRoutine, scheduled_time: e.target.value})}
+                  required
+                />
+              </div>
+              <div className="time-input">
+                <label>End</label>
+                <input 
+                  type="time" 
+                  value={newRoutine.end_time} 
+                  onChange={e => setNewRoutine({...newRoutine, end_time: e.target.value})}
+                />
+              </div>
+              <button type="submit"><Plus size={20} /></button>
+            </div>
           </form>
 
           <div className="item-list">
@@ -243,9 +263,15 @@ export default function Dashboard() {
                   <div className="item-content" onClick={() => handleToggleRoutine(routine)}>
                     {isCompleted ? <CheckCircle className="check-icon" /> : <Circle className="circle-icon" />}
                     <div className="item-info">
-                      <span className="item-title">{routine.title}</span>
+                      <div className="title-row">
+                        <span className="item-title">{routine.title}</span>
+                        {routine.day_of_week && <span className="day-tag">{routine.day_of_week}</span>}
+                      </div>
                       <div className="item-meta">
-                        <span className="time-badge">{routine.scheduled_time.substring(0, 5)}</span>
+                        <span className="time-badge">
+                          {routine.scheduled_time.substring(0, 5)}
+                          {routine.end_time ? ` - ${routine.end_time.substring(0, 5)}` : ''}
+                        </span>
                         {!isCompleted && <span className="due-soon">Upcoming</span>}
                       </div>
                     </div>
@@ -264,4 +290,3 @@ export default function Dashboard() {
     </div>
   );
 }
-

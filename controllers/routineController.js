@@ -15,7 +15,7 @@ const routineController = {
   // This lets users add a new daily routine to their planner
   createRoutine: async (req, res) => {
     try {
-      const { title, scheduled_time } = req.body;
+      const { title, scheduled_time, end_time, day_of_week } = req.body;
 
       if (!title || !scheduled_time) {
         return res.status(400).json({ 
@@ -24,7 +24,7 @@ const routineController = {
         });
       }
 
-      const newId = await Routine.create(req.user.id, title, scheduled_time);
+      const newId = await Routine.create(req.user.id, title, scheduled_time, end_time, day_of_week);
 
       res.status(201).json({
         success: true,

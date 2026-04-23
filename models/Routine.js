@@ -12,10 +12,10 @@ const Routine = {
   },
 
   // Create new routine
-  create: async (userId, title, scheduled_time) => {
+  create: async (userId, title, scheduled_time, end_time, day_of_week) => {
     const [result] = await db.query(
-      'INSERT INTO routines (user_id, title, scheduled_time) VALUES (?, ?, ?)',
-      [userId, title, scheduled_time]
+      'INSERT INTO routines (user_id, title, scheduled_time, end_time, day_of_week) VALUES (?, ?, ?, ?, ?)',
+      [userId, title, scheduled_time, end_time || null, day_of_week || null]
     );
     return result.insertId;
   },
