@@ -36,7 +36,16 @@ const cors = require('cors');
 const app = express();
 
 // Database connection
-require('./config/database');
+const db = require('./config/database');
+db.getConnection()
+  .then(connection => {
+    console.log('✅ Database connected successfully to:', process.env.DB_HOST);
+    connection.release();
+  })
+  .catch(err => {
+    console.error('❌ Database connection failed:', err.message);
+    console.error('Check your DB_HOST, DB_USER, DB_PASS, and DB_NAME environment variables.');
+  });
 
 // Import Routes
 const authRouter = require('./routes/auth');
