@@ -112,6 +112,17 @@ export default function Dashboard() {
     } catch (err) { console.error('Error deleting routine:', err); }
   };
 
+  // Helper to format 24h time to 12h AM/PM
+  const formatTime = (timeStr) => {
+    if (!timeStr) return '';
+    const [hours, minutes] = timeStr.split(':');
+    let h = parseInt(hours);
+    const m = minutes || '00';
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    return `${h}:${m} ${ampm}`;
+  };
+
   if (loading) {
     return (
       <div className="auth-container">
@@ -269,8 +280,8 @@ export default function Dashboard() {
                       </div>
                       <div className="item-meta">
                         <span className="time-badge">
-                          {routine.scheduled_time.substring(0, 5)}
-                          {routine.end_time ? ` - ${routine.end_time.substring(0, 5)}` : ''}
+                          {formatTime(routine.scheduled_time)}
+                          {routine.end_time ? ` - ${formatTime(routine.end_time)}` : ''}
                         </span>
                         {!isCompleted && <span className="due-soon">Upcoming</span>}
                       </div>
